@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
-import prisma from '../src/lib/prisma';
+import bcrypt from 'bcryptjs'
+import prisma from '../src/lib/prisma'
 
 async function main() {
   await prisma.user.upsert({
@@ -17,7 +17,7 @@ async function main() {
         },
       },
     },
-  });
+  })
 
   await prisma.user.upsert({
     where: { email: 'bob@prisma.io' },
@@ -41,14 +41,14 @@ async function main() {
         ],
       },
     },
-  });
+  })
 }
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

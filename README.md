@@ -3,11 +3,11 @@
 </h1>
 
 <h3 align="center">
-  Food Explorer
+  Food Explorer API
 </h3>
 
 <p align="center">
-🏁 RocketSeat's Explorer Course Final Project 🏁
+🏁 RocketSeat's Explorer Course Final Project API 🏁
 </p>
 
 
@@ -52,7 +52,7 @@ Technologies that I used to develop this api
 - [Node.js](https://nodejs.org/en/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Multer](https://github.com/expressjs/multer)
-- [TypeORM](https://typeorm.io/#/)
+- [Primsa ORM](https://prisma.io/)
 - [JWT-token](https://jwt.io/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)

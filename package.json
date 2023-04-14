@@ -2,7 +2,7 @@
   "name": "explorer-final-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/api/server.ts",
   "scripts": {
     "dev": "npx nodemon --exec ts-node src/api/server.ts"
   },
