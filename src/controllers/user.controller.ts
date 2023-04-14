@@ -40,6 +40,8 @@ class UserController {
     else
       res.status(StatusCodes.OK).json({ name: user.name, email: user.email })
   }
+
+
 }
 
 export default new UserController()
