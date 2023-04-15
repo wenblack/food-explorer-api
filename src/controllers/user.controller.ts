@@ -40,6 +40,7 @@ class UserController {
     else
       res.status(StatusCodes.OK).json({ name: user.name, email: user.email })
   }
+
   async update(req: Request, res: Response) {
     const { name, email, oldPassword, newPassword } = req.body
     const user = await prisma.user.findUnique({
@@ -81,6 +82,7 @@ class UserController {
         return res.json(`User ${email} Updated`)
 
       }
+
     } catch {
       res.status(StatusCodes.CONFLICT).json("Email in use")
     }
