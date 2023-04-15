@@ -31,9 +31,8 @@ class UserAvatarController {
       }
     })
 
-    res.json(user)
+    res.json({ newImage: user.avatarUls })
   }
 
 }
-
 export default new UserAvatarController()
