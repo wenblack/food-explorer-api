@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import prisma from '../lib/prisma'
 import bcrypt from 'bcryptjs'
+import { error } from 'console'
 
 class UserController {
   async getById(req: Request, res: Response, next: NextFunction) {
@@ -39,6 +40,45 @@ class UserController {
     }
     else
       res.status(StatusCodes.OK).json({ name: user.name, email: user.email })
+  }
+  async update(req: Request, res: Response) {
+    const { name, email, password, newPassword } = req.body
+
+    const user = await prisma.user.findUnique({
+      where: { id: Number(req.params.id) },
+    })
+
+
+    if (!user) {
+      return (
+        res.status(StatusCodes.BAD_REQUEST).json("User not found")
+      )
+    }
+
+    if (user.password === password) {
+
+    }
+
+    if (user.password === password) {
+      await prisma.user.update({
+        where: { id: Number(req.params.id) },
+        data: {
+          password: bcrypt.hashSync(newPassword, 8)
+        }
+      })
+    }
+    try {
+      await prisma.user.update({
+        where: { id: Number(req.params.id) },
+        data: {
+          name,
+          email,
+        }
+      })
+      res.json("User Updated")
+    } catch {
+      res.json(error)
+    }
   }
 
 

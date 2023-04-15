@@ -5,8 +5,6 @@ import { DiskStorage } from "../providers/DiskStorage"
 
 class UserAvatarController {
   async update(req: any, res: any) {
-
-    const user_id = req.id
     const avatarFilename = req.file.filename
     console.log(avatarFilename)
     const diskStorage = new DiskStorage()

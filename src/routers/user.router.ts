@@ -12,5 +12,6 @@ const upload = multer(Multer)
 userRouter.route('/:id').get(authMiddleware, rescue(userController.getById))
 userRouter.route('/create').post(rescue(userController.createUser))
 userRouter.route('/avatar/:id').patch(authMiddleware, upload.single('avatar'), avatarcontroller.update)
+userRouter.route('/edit/:id').patch(authMiddleware, userController.update)
 
 export default userRouter
