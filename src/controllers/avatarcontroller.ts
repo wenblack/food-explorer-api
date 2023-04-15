@@ -31,7 +31,7 @@ class UserAvatarController {
       }
     })
 
-    res.json({ newImage: user.avatarUls })
+    res.status(StatusCodes.ACCEPTED).json({ newImage: user.avatarUls })
   }
 
 }
