@@ -5,7 +5,7 @@ import prisma from '../lib/prisma'
 class OrderController {
   async getByUserId(req: Request, res: Response, next: NextFunction) {
     const orders = await prisma.order.findMany({
-      where: { userId: Number(req.params.id) },
+      where: { userId: Number(req.params.id) },include:{products:true,}
     })
     const count = await prisma.order.count(
       {
@@ -21,6 +21,7 @@ class OrderController {
   async getAll(req: Request, res: Response, next: NextFunction) {
      
   const groupOrders = await prisma.order.findMany({
+   
     include:{
       products:true
     }
