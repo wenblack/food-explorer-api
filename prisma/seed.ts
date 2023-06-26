@@ -34,6 +34,25 @@ async function main() {
       password: bcrypt.hashSync("admin", 8),
     },
   })
+
+
+  await  prisma.product.create({
+    data :{
+        name: "Salada Ravanello ",
+        description: "Rabanetes, folhas verdes e molho agridoce salpicados com gergelim",
+        imgUrl: "",
+        price :49.97,   
+    }
+  })
+
+  await  prisma.product.create({
+    data :{
+        name: "Torradas de Parma ",
+        description: "Presunto de parma e rúcula em um pão com fermentação natural.",
+        imgUrl: "",
+        price :.97,   
+    }
+  })
 }
 
 main()

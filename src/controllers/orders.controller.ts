@@ -1,22 +1,36 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import prisma from '../lib/prisma'
-import bcrypt, { compare } from 'bcryptjs'
 
-class UserController {
-  async getById(req: Request, res: Response, next: NextFunction) {
-
-    const user = await prisma.user.findUnique({
-      where: { id: Number(req.params.id) },
+class OrderController {
+  async getByUserId(req: Request, res: Response, next: NextFunction) {
+    const orders = await prisma.order.findMany({
+      where: { userId: Number(req.params.id) },
     })
-
-    if (!user)
-      return next({ status: StatusCodes.NOT_FOUND, message: 'User not found' })
-
-    res.status(StatusCodes.OK).json({ name: user.name, email: user.email })
+    const count = await prisma.order.count(
+      {
+      where: { 
+        userId: Number(req.params.id)
+      }
+    })
+    if (orders.length === 0)
+      return next({ status: StatusCodes.NOT_FOUND, message: `User don't have a Order.`  })
+    res.status(StatusCodes.OK).json({ count, orders })
   }
 
-  async createUser(req: Request, res: Response, next: NextFunction) {
+  async getAll(req: Request, res: Response, next: NextFunction) {
+     
+  const groupOrders = await prisma.order.findMany({
+    include:{
+      products:true
+    }
+  })
+
+    res.status(StatusCodes.OK).json({ groupOrders })
+  }
+
+ /* async createUser(req: Request, res: Response, next: NextFunction) {
+    console.log(res.locals.payload) // just to see the payload
     const { email, password, name, isAdmin } = req.body
 
     const userEmail = await prisma.user.findUnique({
@@ -85,8 +99,8 @@ class UserController {
       res.status(StatusCodes.CONFLICT).json("Email in use")
     }
   }
-
+*/
 }
 
 
-export default new UserController()
+export default new OrderController()
