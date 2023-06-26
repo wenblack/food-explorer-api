@@ -19,7 +19,7 @@ class UserController {
 
   async createUser(req: Request, res: Response, next: NextFunction) {
     console.log(res.locals.payload) // just to see the payload
-    const { email, password, name, avatarUrl } = req.body
+    const { email, password, name, isAdmin } = req.body
 
     const userEmail = await prisma.user.findUnique({
       where: { email: email }
@@ -30,7 +30,7 @@ class UserController {
         email: email,
         password: bcrypt.hashSync(password, 8),
         name: name,
-        //avatarUrl,
+        isAdmin: false
       }
     })
 

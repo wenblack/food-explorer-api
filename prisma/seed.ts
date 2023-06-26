@@ -9,13 +9,7 @@ async function main() {
       email: 'alice@prisma.io',
       name: 'Alice',
       password: bcrypt.hashSync("password", 8),
-      posts: {
-        create: {
-          title: 'Check out Prisma with Next.js',
-          content: 'https://www.prisma.io/nextjs',
-          published: true,
-        },
-      },
+      isAdmin: false
     },
   })
 
@@ -26,20 +20,18 @@ async function main() {
       email: 'bob@prisma.io',
       name: 'Bob',
       password: bcrypt.hashSync("password", 8),
-      posts: {
-        create: [
-          {
-            title: 'Follow Prisma on Twitter',
-            content: 'https://twitter.com/prisma',
-            published: true,
-          },
-          {
-            title: 'Follow Nexus on Twitter',
-            content: 'https://twitter.com/nexusgql',
-            published: true,
-          },
-        ],
-      },
+      isAdmin: false
+    },
+  })
+
+    await prisma.user.upsert({
+    where: { email: 'admin' },
+    update: {},
+    create: {
+      email: 'admin',
+      name: 'Administrator',
+      isAdmin:true,
+      password: bcrypt.hashSync("admin", 8),
     },
   })
 }
