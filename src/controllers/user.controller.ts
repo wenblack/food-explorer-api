@@ -15,7 +15,7 @@ class UserController {
   }
 
   async createUser(req: Request, res: Response, next: NextFunction) {
-    const { email, password, name, isAdmin } = req.body
+    const { email, password, name } = req.body
 
     const userEmail = await prisma.user.findUnique({
       where: { email: email }
@@ -31,7 +31,7 @@ class UserController {
     })
 
     if (userEmail) {
-      return next({ status: StatusCodes.CONFLICT, message: 'Invali e-mail' })
+      return next({ status: StatusCodes.CONFLICT, message: 'Invalid e-mail' })
     }
     else
       res.status(StatusCodes.OK).json({ name: user.name, email: user.email })
