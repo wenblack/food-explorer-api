@@ -7,30 +7,24 @@ class OrderController {
     const orders = await prisma.order.findMany({
       where: {
         user: String(req.params.user),
-      }, include: {
+      }, select: {
         productname: true,
-        userName: true
-      }, orderBy: {
-        status: 'asc'
+        amount: true,
       }
+
     })
-    const count = await prisma.order.count(
-      {
-        where: {
-          user: String(req.params.user),
-        }
-      })
     if (orders.length === 0)
       return next({ status: StatusCodes.NOT_FOUND, message: `Você ainda não tem pedidos` })
-    res.status(StatusCodes.OK).json({ count, orders })
+    res.status(StatusCodes.OK).json({ orders })
   }
 
   async getAll(req: Request, res: Response, next: NextFunction) {
-    const groupOrders = await prisma.order.findMany({
-
+    const groupOrders = await prisma.order.groupBy({
+      by: ['id', 'user', 'amount', 'createdAt', 'product', 'status'],
+      orderBy: { createdAt: 'asc' }
     })
 
-    res.status(StatusCodes.OK).json({ groupOrders })
+    res.status(StatusCodes.OK).json({ orders: groupOrders })
   }
 
   /* async createUser(req: Request, res: Response, next: NextFunction) {
