@@ -3,36 +3,37 @@ import { StatusCodes } from "http-status-codes"
 import { DiskStorage } from "../providers/DiskStorage"
 
 
-class UserAvatarController {
- /* async update(req: any, res: any) {
+class ProductImageController {
+ async update(req: any, res: any) {
     const avatarFilename = req.file.filename
+    const {id} = req.params    
     console.log(avatarFilename)
     const diskStorage = new DiskStorage()
 
-    const user = await prisma.user.findUnique({
-      where: { id: Number(req.params.id) },
+    const product = await prisma.product.findUnique({
+      where: { id: id}
     })
 
-    if (!user) {
+    if (!product) {
       return (
-        res.status(StatusCodes.BAD_REQUEST).json("User not found")
+        res.status(StatusCodes.BAD_REQUEST).json("Product not found")
       )
     }
-    if (user.avatarUls) {
+    if (product.imgUrl) {
       await diskStorage.deletFile(String(avatarFilename))
     }
     const filename = await diskStorage.saveFile(String(avatarFilename))
-    user.avatarUls = filename
+    product.imgUrl = filename
 
-    await prisma.user.update({
-      where: { id: Number(req.params.id) },
+    await prisma.product.update({
+     where: { id: id},
       data: {
-        avatarUls: user.avatarUls
+        imgUrl: product.imgUrl
       }
     })
 
-    res.status(StatusCodes.ACCEPTED).json({ newImage: user.avatarUls })
-  }*/
+    res.status(StatusCodes.ACCEPTED).json({ newImage: product.imgUrl })
+  }
 
 }
-export default new UserAvatarController()
+export default new ProductImageController()

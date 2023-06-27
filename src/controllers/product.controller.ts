@@ -4,7 +4,7 @@ import prisma from '../lib/prisma'
 
 class ProductController {
   async getDetails(req: Request, res: Response, next: NextFunction) {
-    const products = await prisma.product.findUnique({
+    const product = await prisma.product.findUnique({
       where: {
         id: req.params.id,
       }, select: {
@@ -15,9 +15,9 @@ class ProductController {
       }
     })
 
-    if (products?.name === '' || null)
+    if (product?.name === '' || null)
       return next({ status: StatusCodes.NOT_FOUND, message: `Produto não encontrado` })
-    res.status(StatusCodes.OK).json({ products })
+    res.status(StatusCodes.OK).json({ product })
   }
 
   async getAll(req: Request, res: Response, next: NextFunction) {
@@ -32,6 +32,30 @@ class ProductController {
     const count = groupOrders.length
 
     res.status(StatusCodes.OK).json({ total: count, products: groupOrders })
+  }
+
+    async search(req: Request, res: Response, next: NextFunction) {
+    const {name} = req.params
+    const result = await prisma.product.findMany({
+        where:{
+          name:{
+            startsWith:name
+          }
+        },
+      select: {
+        name: true,
+        description: true,
+        imgUrl: true,
+        price: true
+      }
+    })
+    const count = result.length
+     
+    if (count === 0 || null)
+      return next({ status: StatusCodes.NOT_FOUND, message: `Não encontramos nenhum produto com esse nome` })
+    
+      
+    res.status(StatusCodes.OK).json({ total: count, result: result })
   }
 
   /* async createUser(req: Request, res: Response, next: NextFunction) {

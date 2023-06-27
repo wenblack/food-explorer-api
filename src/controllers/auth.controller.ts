@@ -34,8 +34,9 @@ class AuthController {
     }
 
     const token = jwt.sign({ id: user.id, email: user.email });
+    const {isAdmin , id, email:userName } = user 
 
-    res.status(StatusCodes.OK).json({ token });
+    res.status(StatusCodes.OK).json({ id,  userName, token , isAdmin });
   }
 }
 

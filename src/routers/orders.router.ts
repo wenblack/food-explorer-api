@@ -5,8 +5,8 @@ import ordersController from '../controllers/orders.controller'
 
 const orderRouter = Router()
 
-//orderRouter.route('/:id').get(authMiddleware, rescue(ordersController.getByUserId))
-orderRouter.route('/:user').get(rescue(ordersController.getByUserId))
-orderRouter.route('/').get(rescue(ordersController.getAll))
+
+orderRouter.route('/:user').get(authMiddleware,rescue(ordersController.getByUserId))
+orderRouter.route('/').get(authMiddleware,rescue(ordersController.getAll))
 
 export default orderRouter
