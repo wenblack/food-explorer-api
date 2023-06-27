@@ -5,14 +5,12 @@ import bcrypt, { compare } from 'bcryptjs'
 
 class UserController {
   async getById(req: Request, res: Response, next: NextFunction) {
-
     const user = await prisma.user.findUnique({
-      where: { id: Number(req.params.id) },
+      where: { id: String(req.params.id) },
     })
 
     if (!user)
       return next({ status: StatusCodes.NOT_FOUND, message: 'User not found' })
-
     res.status(StatusCodes.OK).json({ name: user.name, email: user.email })
   }
 
@@ -42,7 +40,7 @@ class UserController {
   async update(req: Request, res: Response) {
     const { name, email, oldPassword, newPassword } = req.body
     const user = await prisma.user.findUnique({
-      where: { id: Number(req.params.id) },
+      where: { id: String(req.params.id) },
     })
 
     try {
@@ -52,7 +50,7 @@ class UserController {
         )
       } else if (oldPassword === undefined && newPassword === undefined) {
         await prisma.user.update({
-          where: { id: Number(req.params.id) },
+          where: { id: String(req.params.id) },
           data: {
             name,
             email,
@@ -70,7 +68,7 @@ class UserController {
         return res.status(StatusCodes.BAD_REQUEST).json("Passwords don't Matching")
       } else {
         await prisma.user.update({
-          where: { id: Number(req.params.id) },
+          where: { id: String(req.params.id) },
           data: {
             password: bcrypt.hashSync(newPassword, 8),
             name,
@@ -85,7 +83,6 @@ class UserController {
       res.status(StatusCodes.CONFLICT).json("Email in use")
     }
   }
-
 }
 
 

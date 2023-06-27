@@ -8,30 +8,36 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
 
   name     String
   email    String   @unique
   password String
-  isAdmin  Boolean?
-  Order    Order[]
+  isAdmin  Boolean? @default(false)
+
+  orders Order[]
 }
 
 model Product {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
 
-  name        String @unique
+  name        String  @unique
   description String
-  price       Float
-  imgUrl      String
+  price       Decimal
+  imgUrl      String?
 
   orders Order[]
 }
 
 model Order {
-  id Int @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
+  user         String
+  product      String
+  productPrice Decimal
+  amount       Int      @default(1)
+  status       String?  @default("Pendente")
+  createdAt    DateTime @default(now())
 
-  user     User      @relation(fields: [userId], references: [id])
-  userId   Int
-  products Product[]
+  userName    User    @relation(fields: [user], references: [email])
+  productname Product @relation(fields: [product], references: [name])
 }

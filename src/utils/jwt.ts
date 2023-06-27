@@ -5,7 +5,7 @@ const SECRET = process.env.JWT_SECRET_KEY || 'secret'
 
 
 interface IPayload {
-  id: number
+  id: string
   email: string
 }
 
