@@ -23,8 +23,12 @@ class OrderController {
       by: ['id', 'user', 'amount', 'createdAt', 'product', 'status'],
       orderBy: { createdAt: 'asc' }
     })
+    if(groupOrders.length ===0){
+      res.status(StatusCodes.OK).json({ message: "Nenhum pedido cadastrado" })
+    }else{
 
-    res.status(StatusCodes.OK).json({ orders: groupOrders })
+      res.status(StatusCodes.OK).json({ orders: groupOrders })
+    }
   }
 }
 

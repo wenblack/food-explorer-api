@@ -11,7 +11,7 @@ class AuthController {
     if (!email || !password) {
       return next({
         status: StatusCodes.BAD_REQUEST,
-        message: 'Some required fields are missing',
+        message: 'Alguns campos obrigatórios não foram preenchidos',
       });
     }
 
@@ -20,7 +20,7 @@ class AuthController {
     if (!user) {
       return next({
         status: StatusCodes.NOT_FOUND,
-        message: 'User not found',
+        message: 'Usuário não localizado',
       });
     }
 
@@ -29,7 +29,7 @@ class AuthController {
     if (!isValidPassword) {
       return next({
         status: StatusCodes.UNAUTHORIZED,
-        message: 'Invalid password',
+        message: 'Senha inválida',
       });
     }
 

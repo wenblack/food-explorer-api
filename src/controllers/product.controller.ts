@@ -16,7 +16,7 @@ class ProductController {
         ingredients:true,      }
     })
 
-    if (product?.name === '' || null)
+    if (product === null)
       return next({ status: StatusCodes.NOT_FOUND, message: `Produto não encontrado` })
     res.status(StatusCodes.OK).json({ product })
   }
@@ -32,6 +32,9 @@ class ProductController {
       }
     })
     const count = groupOrders.length
+    if(count === 0){
+      res.status(StatusCodes.NOT_FOUND).json({error : " Nenhum produto cadastrado"})
+    }
 
     res.status(StatusCodes.OK).json({ total: count, products: groupOrders })
   }
