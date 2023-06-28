@@ -5,7 +5,7 @@
   "main": "./src/api/server.ts",
   "scripts": {
     "dev": "npx prisma migrate dev && npx nodemon --exec ts-node src/api/server.ts",
-    "prod": "npx prisma migrate dev && npx ts-node src/api/server.ts"
+    "prod": "prisma migrate dev &&  nodemon --exec ts-node src/api/server.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
