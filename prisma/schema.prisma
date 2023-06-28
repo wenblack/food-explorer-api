@@ -25,7 +25,8 @@ model Product {
   description String
   price       Decimal
   imgUrl      String?
-
+  ingredients ingredient[]
+  categorie categorie[]
   orders Order[]
 }
 
@@ -40,4 +41,17 @@ model Order {
 
   userName    User    @relation(fields: [user], references: [email])
   productname Product @relation(fields: [product], references: [name])
+}
+
+model ingredient {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  imageUlr String
+  products Product[]
+}
+
+model categorie {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  products Product[]
 }

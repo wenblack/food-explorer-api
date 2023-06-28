@@ -5,7 +5,7 @@ import searchController from '../controllers/search.controller'
 
 const searchRouter = Router()
 
-searchRouter.route("/:name").get(authMiddleware, rescue(searchController.search))
+searchRouter.route("/:name").get(authMiddleware, rescue(searchController.get))
 
 
 export default searchRouter

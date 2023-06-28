@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import prisma from '../lib/prisma'
 
 class ProductController {
-  async getDetails(req: Request, res: Response, next: NextFunction) {
+  async get(req: Request, res: Response, next: NextFunction) {
     const product = await prisma.product.findUnique({
       where: {
         id: req.params.id,
@@ -12,8 +12,8 @@ class ProductController {
         name: true,
         description: true,
         imgUrl: true,
-        price: true
-      }
+        price: true,
+        ingredients:true,      }
     })
 
     if (product?.name === '' || null)
@@ -21,7 +21,7 @@ class ProductController {
     res.status(StatusCodes.OK).json({ product })
   }
 
-  async getAll(req: Request, res: Response, next: NextFunction) {
+  async index(req: Request, res: Response, next: NextFunction) {
     const groupOrders = await prisma.product.findMany({
       select: {
         id: true,
@@ -36,7 +36,7 @@ class ProductController {
     res.status(StatusCodes.OK).json({ total: count, products: groupOrders })
   }
 
-  async createProduct(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction) {
     const { name, description, price, imgUrl } = req.body
 
     if (!name || !description || !price) {

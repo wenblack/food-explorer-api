@@ -4,7 +4,7 @@ import prisma from '../lib/prisma'
 import bcrypt, { compare } from 'bcryptjs'
 
 class UserController {
-  async createUser(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction) {
     const { email, password, name } = req.body
 
     if (!email || !password || !name) {

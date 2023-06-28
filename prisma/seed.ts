@@ -41,7 +41,7 @@ async function main() {
         name: "Salada Ravanello ",
         description: "Rabanetes, folhas verdes e molho agridoce salpicados com gergelim",
         imgUrl: "",
-        price :49.97,   
+        price :49.97,
     }
   })
 

@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import prisma from '../lib/prisma'
 
 class SearchProductController {
-  async search(req: Request, res: Response, next: NextFunction) {
+  async get(req: Request, res: Response, next: NextFunction) {
     const { name } = req.params
 
     const result = await prisma.product.findMany({

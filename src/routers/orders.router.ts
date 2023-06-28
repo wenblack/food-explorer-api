@@ -6,7 +6,7 @@ import ordersController from '../controllers/orders.controller'
 const orderRouter = Router()
 
 
-orderRouter.route('/:user').get(authMiddleware,rescue(ordersController.getByUserId))
-orderRouter.route('/').get(authMiddleware,rescue(ordersController.getAll))
+orderRouter.route('/:user').get(authMiddleware,rescue(ordersController.get))
+orderRouter.route('/').get(authMiddleware,rescue(ordersController.index))
 
 export default orderRouter

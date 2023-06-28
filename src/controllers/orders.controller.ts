@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import prisma from '../lib/prisma'
 
 class OrderController {
-  async getByUserId(req: Request, res: Response, next: NextFunction) {
+  async get(req: Request, res: Response, next: NextFunction) {
     const orders = await prisma.order.findMany({
       where: {
         user: String(req.params.user),
@@ -18,7 +18,7 @@ class OrderController {
     res.status(StatusCodes.OK).json({ orders })
   }
 
-  async getAll(req: Request, res: Response, next: NextFunction) {
+  async index(req: Request, res: Response, next: NextFunction) {
     const groupOrders = await prisma.order.groupBy({
       by: ['id', 'user', 'amount', 'createdAt', 'product', 'status'],
       orderBy: { createdAt: 'asc' }
