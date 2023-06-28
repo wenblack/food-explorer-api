@@ -9,7 +9,7 @@ class SearchProductController {
     const result = await prisma.product.findMany({
       where: {
         name: {
-          startsWith: String(name)
+          contains: String(name)
         }
       },
       select: {

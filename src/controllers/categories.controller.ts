@@ -15,8 +15,12 @@ class CategoriesController {
     
     const total = Number(product?.products.length)
 
+    if(product === null){
+      return next({ status: StatusCodes.NOT_FOUND, message: `Categoria não existe` })
+    }
+
     if (total === 0)
-      return next({ status: StatusCodes.NOT_FOUND, message: `Produto não encontrado` })
+      return next({ status: StatusCodes.NOT_FOUND, message: `Não há nenhum produto nesta categoria` })
     res.status(StatusCodes.OK).json({ result:product })
   }
 

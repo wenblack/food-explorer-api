@@ -2,14 +2,26 @@ import bcrypt from 'bcryptjs'
 import prisma from '../src/lib/prisma'
 
 async function main() {
-  await prisma.user.upsert({
-    where: { email: 'alice@prisma.io' },
+  await prisma.categorie.upsert({
+    where: { name: 'Prato principal' },
     update: {},
     create: {
-      email: 'alice@prisma.io',
-      name: 'Alice',
-      password: bcrypt.hashSync("password", 8),
-      isAdmin: false
+      name: 'Prato principal',
+    },
+  })
+  
+  await prisma.categorie.upsert({
+    where: { name: 'Sobremesas' },
+    update: {},
+    create: {
+      name: 'Sobremesas',
+    },
+  })
+  await prisma.categorie.upsert({
+    where: { name: 'Bebidas' },
+    update: {},
+    create: {
+      name: 'Bebidas',
     },
   })
 
@@ -35,22 +47,12 @@ async function main() {
     },
   })
 
-
-  await  prisma.product.create({
-    data :{
-        name: "Salada Ravanello ",
-        description: "Rabanetes, folhas verdes e molho agridoce salpicados com gergelim",
-        imgUrl: "",
-        price :49.97,
-    }
-  })
-
   await  prisma.product.create({
     data :{
         name: "Torradas de Parma ",
         description: "Presunto de parma e rúcula em um pão com fermentação natural.",
         imgUrl: "",
-        price :.97,   
+        price :.97,
     }
   })
 }

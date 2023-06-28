@@ -21,13 +21,15 @@ model User {
 model Product {
   id String @id @default(uuid())
 
-  name        String  @unique
+  name        String       @unique
   description String
   price       Decimal
   imgUrl      String?
+  categorie   String? @default("Prato principal")
   ingredients ingredient[]
-  categorie categorie[]
-  orders Order[]
+  orders      Order[]
+  
+  categorieName  categorie?    @relation(fields: [categorie], references: [name])
 }
 
 model Order {
@@ -44,14 +46,14 @@ model Order {
 }
 
 model ingredient {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
   imageUlr String
   products Product[]
 }
 
 model categorie {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
   products Product[]
 }
