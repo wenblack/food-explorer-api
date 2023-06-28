@@ -10,10 +10,11 @@ import { Multer } from '../config/upload'
 const productRouter = Router()
 const upload = multer(Multer)
 
-productRouter.route('/:id').get(authMiddleware,rescue(productController.getDetails))
-productRouter.route('/').get(authMiddleware,rescue(productController.getAll))
-productRouter.route("/search/:name").get(authMiddleware,rescue(productController.search))
-productRouter.route('/image/:id').patch( upload.single('file'), avatarcontroller.update)
-
+productRouter.route('/:id').get(authMiddleware, rescue(productController.getDetails))
+productRouter.route('/').get(authMiddleware, rescue(productController.getAll))
+productRouter.route('/create').post(authMiddleware, rescue(productController.createProduct))
+productRouter.route('/image/:id').patch(upload.single('file'), avatarcontroller.update)
+productRouter.route('/delete/').patch(authMiddleware, rescue(productController.delete))
+productRouter.route('/update').post(authMiddleware, productController.update)
 
 export default productRouter
