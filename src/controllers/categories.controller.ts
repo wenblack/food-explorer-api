@@ -21,7 +21,7 @@ class CategoriesController {
 
     if (total === 0)
       return next({ status: StatusCodes.NOT_FOUND, message: `Não há nenhum produto nesta categoria` })
-    res.status(StatusCodes.OK).json({ result:product })
+    res.status(StatusCodes.OK).json({ total, result:product })
   }
 
 }
