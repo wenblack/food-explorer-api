@@ -5,6 +5,6 @@ import authMiddleware from '../middlewares/auth'
 
 const userRouter = Router()
 
-userRouter.route('/create').post(authMiddleware, rescue(userController.create))
+userRouter.route('/create').post(rescue(userController.create))
 
 export default userRouter
